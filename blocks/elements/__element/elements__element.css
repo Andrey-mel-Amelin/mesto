@@ -1,0 +1,18 @@
+.elements__element {
+  position: relative;
+  display: grid;
+  background-color: #fff;
+  color: #000;
+  grid-template-rows: 282px min-content;
+  gap: 25px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.elements__element::after {
+  cursor: pointer;
+  content: url(../../../images/elements/heart.svg);
+  position: absolute;
+  bottom: 26px;
+  right: 20px;
+}
