@@ -8,5 +8,11 @@
 }
 
 .elements__heart:hover {
+  transition: .5s;
   opacity: 0.5;
+}
+
+.elements__heart:active {
+  opacity: 1;
+  content: url(../../../images/elements/heart-active.svg);
 }
