@@ -1,4 +1,5 @@
 .profile__author {
+  max-width: 500px;
   margin: 0 0 6px;
   font-weight: 500;
   font-size: 42px;
@@ -9,6 +10,7 @@
 
 @media screen and (max-width: 767px) {
   .profile__author {
+    text-align: center;
     font-size: 27px;
     line-height: 33px;
     padding-top: 26px;

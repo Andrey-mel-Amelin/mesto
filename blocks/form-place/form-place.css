@@ -1,14 +1,17 @@
 .form-place {
-  display: none;
-  padding-top: 195px;
-  width: 100%;
-  max-width: 1280px;
-  height: 100vh;
+  z-index: 10;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  transition: .5s;
+  transform: scale(0);
+  visibility: hidden;
+  position: fixed;
+  display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 195px;
   background-color: rgba(00, 00, 00, 0.5);
-  position: fixed;
-  z-index: 10;
 }
 
 @media screen and (max-width: 767px) {

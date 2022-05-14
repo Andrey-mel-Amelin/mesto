@@ -6,19 +6,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./pages/index.css">
-  <script defer src="./scripts/index.js"></script>
-  <title>Место</title>
+  <title>Место - страничка с карточками</title>
 </head>
 
 <body class="page block-center">
   <div class="form-place">
     <form class="form">
+      <div class="form__close-btn"></div>
       <h2 class="form__title">Редактировать профиль</h2>
-      <input class="form__input" type="text" name="form-name-author" placeholder="Жак-Ив Кусто" required />
-      <input class="form__input" type="text" name="form-name-author-subline" placeholder="Исследователь океана"
-        required />
+      <input class="form__input" type="text" name="form-name-author" required />
+      <input class="form__input" type="text" name="form-name-author-job" required />
       <label class="form__save" for="form-save">
-        <input class="form__save-btn" id="form-save" type="submit" />
+        <input class="form__save-btn" type="submit" id="form-save" />
         <p class="form__save-btn-text">Сохранить</p>
       </label>
     </form>
@@ -31,12 +30,12 @@
       <img class="profile__avatar" src="./images/profile/avatar.jpg" alt="Аватар">
       <div class="profile__profile-info">
         <h1 class="profile__author">Жак-Ив Кусто</h1>
-        <p class="profile__author-subline">Исследователь океана</p>
+        <p class="profile__author-job">Исследователь океана</p>
         <div class="profile__edit-button"></div>
       </div>
       <div class="profile__add-button"></div>
     </section>
-    <section class="elements block-center" aria-label="Карточки с изображениями">
+    <section class="elements" aria-label="Карточки с изображениями">
       <article class="elements__element">
         <img class="elements__image" src="./images/elements/karachaevsk.jpeg" alt="Карачаевск">
         <h2 class="elements__title">Карачаевск</h2>
@@ -72,4 +71,7 @@
   <footer class="footer block-center">
     <p class="footer__copyright">© 2020 Mesto Russia</p>
   </footer>
+  <script src="./scripts/index.js"></script>
 </body>
+
+</html>
