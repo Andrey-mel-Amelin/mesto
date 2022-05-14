@@ -1,0 +1,15 @@
+.form__save {
+  display: flex;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 48px;
+  background-color: #000;
+}
+
+@media screen and (max-width: 767px) {
+  .form__save {
+    margin-top: 45px;
+    height: 46px;
+  }
+}
