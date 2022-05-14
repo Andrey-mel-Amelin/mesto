@@ -8,11 +8,3 @@
   border-radius: 10px;
   overflow: hidden;
 }
-
-.elements__element::after {
-  cursor: pointer;
-  content: url(../../../images/elements/heart.svg);
-  position: absolute;
-  bottom: 26px;
-  right: 20px;
-}

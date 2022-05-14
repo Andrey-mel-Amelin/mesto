@@ -1,0 +1,12 @@
+.elements__heart {
+  cursor: pointer;
+  content: url(../../../images/elements/heart.svg);
+  position: absolute;
+  bottom: 31px;
+  right: 20px;
+  transition: .5s;
+}
+
+.elements__heart:hover {
+  opacity: 0.5;
+}

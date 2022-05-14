@@ -6,6 +6,13 @@
   margin-top: 48px;
   background-color: #000;
   border-radius: 2px;
+  cursor: pointer;
+  transition: .5s;
+}
+
+.form__save:hover {
+  transition: .5s;
+  background-color: rgba(0,0,0, 0.8);
 }
 
 @media screen and (max-width: 767px) {
