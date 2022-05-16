@@ -1,10 +1,11 @@
 .elements__element {
-  position: relative;
-  display: grid;
   background-color: #fff;
   color: #000;
-  grid-template-rows: 282px min-content;
-  gap: 25px;
+  display: grid;
+  grid-template: 282px 79px / 1fr;
+  grid-template-areas:
+    "img img"
+    "title like";
   border-radius: 10px;
   overflow: hidden;
 }

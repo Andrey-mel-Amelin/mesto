@@ -1,8 +1,8 @@
 /* ниже открытие/закрытие попап окна */
-let formPlace = document.querySelector('.form-place');
-let page = document.querySelector('.page');
-let formOpenBtn = document.querySelector('.profile__edit-button');
-let formCloseBtn = document.querySelector('.form__close-btn');
+const formPlace = document.querySelector('.form-place');
+const page = document.querySelector('.page');
+const formOpenBtn = document.querySelector('.profile__edit-btn');
+const formCloseBtn = document.querySelector('.form__close-btn');
 
 formOpenBtn.addEventListener('click', function () {
   formPlace.classList.add('form-place_condition_active');
@@ -13,7 +13,8 @@ formOpenBtn.addEventListener('click', function () {
 formCloseBtn.addEventListener('click', function () {
   formPlace.classList.remove('form-place_condition_active');
   page.classList.remove('page_overflow_hidden');
-  return
+  authorInput.value = author.textContent;
+  authorJobInput.value = authorJob.textContent;
 });
 
 /* ниже дублирование текста об авторе/персонаже (текста в блоке profile в форму редактирования) */
@@ -26,18 +27,14 @@ authorInput.value = author.textContent;
 authorJobInput.value = authorJob.textContent;
 
 /* ниже редактирование имени и стези автора/персонажа */
-let form = document.querySelector('.form');
-let formCloseButton = document.querySelector('.form__save');
+const formModal = document.querySelector('.form');
 
 function formSubmitHandler(evt) {
   evt.preventDefault();
   author.textContent = authorInput.value;
   authorJob.textContent = authorJobInput.value;
-  form.addEventListener('submit', function () {
-    formPlace.classList.remove('form-place_condition_active');
-    page.classList.remove('page_overflow_hidden');
-    return
-  });
+  formPlace.classList.remove('form-place_condition_active');
+  page.classList.remove('page_overflow_hidden');
 };
 
-form.addEventListener('submit', formSubmitHandler);
+formModal.addEventListener('submit', formSubmitHandler);
