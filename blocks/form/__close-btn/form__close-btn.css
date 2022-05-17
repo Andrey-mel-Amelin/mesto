@@ -4,6 +4,7 @@
   top: -40px;
   background-image: url(../../../images/close-btn.svg);
   background-repeat: no-repeat;
+  background-size: 32px 32px;
   border: none;
   font: inherit;
   color: inherit;
@@ -23,6 +24,7 @@
   .form__close-btn {
     right: 0;
     top: -35px;
+    background-size: 20px 20px;
     width: 20px;
     height: 20px;
   }
