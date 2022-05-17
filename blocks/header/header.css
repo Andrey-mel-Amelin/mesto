@@ -1,8 +1,10 @@
 .header {
+  margin: 0 auto;
   padding-top: 46px;
   width: calc(100% - 2 * 200px);
   min-height: 74px;
-  border-bottom: 1px solid rgba(54, 54, 54, 0.7);
+  border-bottom: 1px solid rgba(84, 84, 84);
+  flex: 1;
 }
 
 @media screen and (max-width: 1279px) {

@@ -1,9 +1,0 @@
-.form-place_condition_active {
-  width: 100%;
-  max-width: 1280px;
-  height: 100vh;
-  visibility: visible;
-  transform: scale(1);
-  opacity: 1;
-  transition: .5s;
-}

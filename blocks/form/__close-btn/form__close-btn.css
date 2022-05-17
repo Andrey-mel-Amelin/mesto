@@ -1,18 +1,17 @@
 .form__close-btn {
   position: absolute;
-  content: '';
-  background-image: url(../../../images/close-btn.svg);
-  background-size: 32px 32px;
-  width: 32px;
-  height: 32px;
-  top: -40px;
   right: -40px;
-  transition: .5s;
-  cursor: pointer;
+  top: -40px;
+  background-image: url(../../../images/close-btn.svg);
+  background-repeat: no-repeat;
   border: none;
   font: inherit;
   color: inherit;
   background-color: transparent;
+  width: 32px;
+  height: 32px;
+  transition: .5s;
+  cursor: pointer;
 }
 
 .form__close-btn:hover {
@@ -24,7 +23,6 @@
   .form__close-btn {
     right: 0;
     top: -35px;
-    background-size: 20px 20px;
     width: 20px;
     height: 20px;
   }

@@ -1,5 +1,8 @@
 .profile__author {
-  max-width: 500px;
+  max-width: 294px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   margin: 0;
   font-weight: 500;
   font-size: 42px;
@@ -8,8 +11,8 @@
 
 @media screen and (max-width: 767px) {
   .profile__author {
+    max-width: 189px;
     margin-left: 10px;
-    max-width: none;
     padding: 26px 0 0 17px;
     font-size: 27px;
     line-height: 33px;

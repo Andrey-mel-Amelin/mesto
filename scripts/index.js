@@ -1,40 +1,38 @@
-/* ниже открытие/закрытие попап окна */
-const formPlace = document.querySelector('.form-place');
-const page = document.querySelector('.page');
-const formOpenBtn = document.querySelector('.profile__edit-btn');
-const formCloseBtn = document.querySelector('.form__close-btn');
+/* ниже выделены модальное окно и кнопки его открытия и закрытия */
+const popup = document.querySelector('.popup');
+const popupOpenBtn = document.querySelector('.profile__edit-btn');
+const popupCloseBtn = document.querySelector('.form__close-btn');
 
-formOpenBtn.addEventListener('click', function () {
-  formPlace.classList.add('form-place_condition_active');
-  page.classList.add('page_overflow_hidden');
-  return
-});
-
-formCloseBtn.addEventListener('click', function () {
-  formPlace.classList.remove('form-place_condition_active');
-  page.classList.remove('page_overflow_hidden');
-  authorInput.value = author.textContent;
-  authorJobInput.value = authorJob.textContent;
-});
-
-/* ниже дублирование текста об авторе/персонаже (текста в блоке profile в форму редактирования) */
+/* ниже переменные текстовых полей */
 let author = document.querySelector('.profile__author');
 let authorJob = document.querySelector('.profile__author-job');
-let authorInput = document.querySelector('.form__input[name=form-name-author]');
-let authorJobInput = document.querySelector('.form__input[name=form-name-author-job');
+let authorInput = document.querySelector('.form__input_name-author');
+let authorJobInput = document.querySelector('.form__input_name-author-job');
 
-authorInput.value = author.textContent;
-authorJobInput.value = authorJob.textContent;
+/* ниже функция открытия модального окна с отслеживанием по клику */
+function openPopup() {
+  popup.classList.add('popup_visible');
+  authorInput.value = author.textContent;
+  authorJobInput.value = authorJob.textContent;
+};
+popupOpenBtn.addEventListener('click', openPopup);
 
-/* ниже редактирование имени и стези автора/персонажа */
-const formModal = document.querySelector('.form');
+/* ниже функция закрытия модального окна с отслеживанием по клику */
+function closePopup() {
+  popup.classList.remove('popup_visible');
+  authorInput.value = author.textContent;
+  authorJobInput.value = authorJob.textContent;
+};
+popupCloseBtn.addEventListener('click', closePopup);
+
+/* ниже функция сохранения формы */
+
+const formWindow = document.querySelector('.form');
 
 function formSubmitHandler(evt) {
   evt.preventDefault();
   author.textContent = authorInput.value;
   authorJob.textContent = authorJobInput.value;
-  formPlace.classList.remove('form-place_condition_active');
-  page.classList.remove('page_overflow_hidden');
+  popup.classList.remove('popup_visible');
 };
-
-formModal.addEventListener('submit', formSubmitHandler);
+formWindow.addEventListener('submit', formSubmitHandler);
