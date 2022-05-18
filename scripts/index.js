@@ -6,8 +6,8 @@ const popupCloseBtn = document.querySelector('.form__close-btn');
 /* ниже переменные текстовых полей */
 let author = document.querySelector('.profile__author');
 let authorJob = document.querySelector('.profile__author-job');
-let authorInput = document.querySelector('.form__input_name-author');
-let authorJobInput = document.querySelector('.form__input_name-author-job');
+let authorInput = document.querySelector('.form__input_info_name-author');
+let authorJobInput = document.querySelector('.form__input_info_name-author-job');
 
 /* ниже функция открытия модального окна с отслеживанием по клику */
 function openPopup() {
@@ -20,8 +20,6 @@ popupOpenBtn.addEventListener('click', openPopup);
 /* ниже функция закрытия модального окна с отслеживанием по клику */
 function closePopup() {
   popup.classList.remove('popup_visible');
-  authorInput.value = author.textContent;
-  authorJobInput.value = authorJob.textContent;
 };
 popupCloseBtn.addEventListener('click', closePopup);
 
