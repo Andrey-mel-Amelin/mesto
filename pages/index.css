@@ -21,7 +21,7 @@
 @import url(../blocks/profile/__author/profile__author.css);
 @import url(../blocks/profile/__edit-btn/profile__edit-btn.css);
 @import url(../blocks/profile/__author-job/profile__author-job.css);
-@import url(../blocks/profile/__add-btn/profile__add-btn.css);
+@import url(../blocks/profile/__add-card-btn/profile__add-card-btn.css);
 
 /* ниже блок elements */
 @import url(../blocks/elements/elements.css);
@@ -29,8 +29,10 @@
 /* ниже блок element */
 @import url(../blocks/element/element.css);
 @import url(../blocks/element/__image/element__image.css);
+@import url(../blocks/element/__image-delete/element__image-delete.css);
 @import url(../blocks/element/__title/element__title.css);
 @import url(../blocks/element/__like/element__like.css);
+@import url(../blocks/element/__like/_active/element__like_active.css);
 
 
 /* ниже блок footer */
@@ -39,12 +41,17 @@
 
 /* ниже блок модального окна */
 @import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/_for/popup_for_scale-image.css);
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/_visible/popup_visible.css);
 
 /* ниже форма редактирования автора */
 @import url(../blocks/form/form.css);
+@import url(../blocks/form/_for/form_for_scale-image.css);
 @import url(../blocks/form/__close-btn/form__close-btn.css);
+@import url(../blocks/form/__image-container/form__image-container.css);
+@import url(../blocks/form/__image/form__image.css);
+@import url(../blocks/form/__image-title/form__image-title.css);
 @import url(../blocks/form/__title/form__title.css);
 @import url(../blocks/form/__input/form__input.css);
 @import url(../blocks/form/__save/form__save.css);

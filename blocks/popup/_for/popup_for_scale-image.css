@@ -1,0 +1,5 @@
+.popup_for_scale_image {
+  visibility: visible;
+  opacity: 1;
+  transition: .5s;
+}
