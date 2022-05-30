@@ -3,4 +3,10 @@
   height: 100%;
   object-fit: cover;
   cursor: pointer;
+  transition: .5s;
+}
+
+.element__image:hover {
+  transition: .5s;
+  transform: scale(1.05) translateY(-7px);
 }
