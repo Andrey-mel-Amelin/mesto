@@ -1,5 +1,5 @@
 const popupList = document.querySelectorAll('.popup');
-const popupCloseBtnList = document.querySelectorAll('.form__close-btn');
+const popupCloseBtnList = document.querySelectorAll('.popup__close-btn');
 const popupForEditAuthor = document.querySelector('.popup_for_edit-author');
 const popupForAddCard = document.querySelector('.popup_for_add-card');
 const popupForScaleImg = document.querySelector('.popup_for_scale-image');
@@ -10,6 +10,8 @@ const formForEditAuthor = popupForEditAuthor.querySelector('.form');
 const formForAddCard = popupForAddCard.querySelector('.form');
 const formInputImage = formForAddCard.querySelector('.form__input_info_link-img');
 const formInputTitle = formForAddCard.querySelector('.form__input_info_name-card');
+const formImg = document.querySelector('.form__image');
+const formImgTitle = document.querySelector('.form__image-title');
 
 const authorProfile = document.querySelector('.profile__author');
 const authorJobProfile = document.querySelector('.profile__author-job');
@@ -29,17 +31,15 @@ function openPropfilePopup() {
   openPopup(popupForEditAuthor);
 };
 
-function closePopup() {
-  popupList.forEach((item) => {
-    item.classList.remove('popup_visible');
-  });
+function closePopup(popup) {
+  popup.classList.remove('popup_visible');
 };
 
 function submitProfileInfo(evt) {
   evt.preventDefault();
   authorProfile.textContent = authorProfileInput.value;
   authorJobProfile.textContent = authorJobProfileInput.value;
-  closePopup();
+  closePopup(popupForEditAuthor);
 };
 
 function likeCard(evt) {
@@ -52,10 +52,9 @@ function removeCard(evt) {
 
 function scaleImage(element) {
   openPopup(popupForScaleImg);
-  const popupImg = document.querySelector('.form__image');
-  const popupImgTitle = document.querySelector('.form__image-title');
-  popupImg.src = element.src;
-  popupImgTitle.textContent = element.alt;
+  formImg.src = element.src;
+  formImg.alt = element.alt;
+  formImgTitle.textContent = element.alt;
 };
 
 function addCard(image, title) {
@@ -66,7 +65,7 @@ function addCard(image, title) {
   cardFull.querySelector('.element__title').textContent = title;
   cardFull.querySelector('.element__like').addEventListener('click', likeCard);
   cardFull.querySelector('.element__delete').addEventListener('click', removeCard);
-  cardFull.querySelector('.element__image').addEventListener('click', () => scaleImage(cardImage));
+  cardImage.addEventListener('click', () => scaleImage(cardImage));
   return cardFull;
 };
 
@@ -79,7 +78,7 @@ function submitAddCard(evt) {
   const element = addCard(formInputImage.value, formInputTitle.value);
   renderCard(cardElements, element);
   formForAddCard.reset();
-  closePopup();
+  closePopup(popupForAddCard);
 };
 
 initialCards.forEach((item) => {
@@ -92,7 +91,7 @@ profileEditOpenBtn.addEventListener('click', openPropfilePopup);
 cardAddOpenBtn.addEventListener('click', () => openPopup(popupForAddCard));
 
 popupCloseBtnList.forEach((item) => {
-  item.addEventListener('click', closePopup);
+  item.addEventListener('click', () => closePopup(item.closest('.popup')));
 });
 
 formForEditAuthor.addEventListener('submit', submitProfileInfo);

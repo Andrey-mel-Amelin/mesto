@@ -43,12 +43,12 @@
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_for/popup_for_scale-image.css);
 @import url(../blocks/popup/__container/popup__container.css);
+@import url(../blocks/popup/__close-btn/popup__close-btn.css);
 @import url(../blocks/popup/_visible/popup_visible.css);
 
 /* ниже форма редактирования автора */
 @import url(../blocks/form/form.css);
 @import url(../blocks/form/_for/form_for_scale-image.css);
-@import url(../blocks/form/__close-btn/form__close-btn.css);
 @import url(../blocks/form/__image-container/form__image-container.css);
 @import url(../blocks/form/__image/form__image.css);
 @import url(../blocks/form/__image-title/form__image-title.css);
