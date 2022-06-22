@@ -74,6 +74,7 @@ function addCard(image, title) {
   cardFull.querySelector('.element__title').textContent = title;
   cardFull.querySelector('.element__like').addEventListener('click', likeCard);
   cardFull.querySelector('.element__delete').addEventListener('click', removeCard);
+  cardImage.addEventListener('click', () => scaleImage(cardImage));
   return cardFull;
 };
 
@@ -83,10 +84,15 @@ function renderCard(elementPlace, element) {
 
 function submitAddCard(evt) {
   evt.preventDefault();
+  
   const element = addCard(formInputImage.value, formInputTitle.value);
+  const submitButton = evt.target.querySelector('.form__save');
+
   renderCard(cardElements, element);
-  formForAddCard.reset();
   closePopup(popupForAddCard);
+  buttonDisabled(submitButton);
+
+  formForAddCard.reset();
 };
 
 initialCards.forEach((item) => {
@@ -102,16 +108,12 @@ popupCloseBtnList.forEach((item) => {
   item.addEventListener('click', () => closePopup(item.closest('.popup')));
 });
 
-document.addEventListener('click', function (evt) {
-  if (evt.target.classList.contains('element__image')) {
-    scaleImage(evt.target);
-  };
-});
-
-document.addEventListener('click', function (evt) {
-  if (evt.target.classList.contains('popup_visible')) {
-    closePopup(evt.target);
-  };
+popupList.forEach((item) => {
+  item.addEventListener('click', function (evt) {
+    if (evt.target.classList.contains('popup_visible')) {
+      closePopup(evt.target);
+    };
+  });
 });
 
 formForEditAuthor.addEventListener('submit', submitProfileInfo);
