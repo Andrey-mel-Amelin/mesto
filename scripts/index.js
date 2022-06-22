@@ -1,5 +1,4 @@
 const popupList = document.querySelectorAll('.popup');
-const popupCloseBtnList = document.querySelectorAll('.popup__close-btn');
 const popupForEditAuthor = document.querySelector('.popup_for_edit-author');
 const popupForAddCard = document.querySelector('.popup_for_add-card');
 const popupForScaleImg = document.querySelector('.popup_for_scale-image');
@@ -21,13 +20,6 @@ const authorJobProfileInput = document.querySelector('.form__input_info_name-aut
 const cardElements = document.querySelector('.elements');
 const cardTemplate = document.querySelector('#card').content;
 
-function popupCloseEsc(evt) {
-  if (evt.key === 'Escape') {
-    const popupVisible = document.querySelector('.popup_visible');
-    closePopup(popupVisible);
-  };
-};
-
 function openPopup(popup) {
   popup.classList.add('popup_visible');
   document.addEventListener('keydown', popupCloseEsc);
@@ -36,6 +28,13 @@ function openPopup(popup) {
 function closePopup(popup) {
   popup.classList.remove('popup_visible');
   document.removeEventListener('keydown', popupCloseEsc);
+};
+
+function popupCloseEsc(evt) {
+  if (evt.key === 'Escape') {
+    const popupVisible = document.querySelector('.popup_visible');
+    closePopup(popupVisible);
+  };
 };
 
 function openPropfilePopup() {
@@ -61,10 +60,10 @@ function removeCard(evt) {
 
 function scaleImage(element) {
   openPopup(popupForScaleImg);
-  formImg.src = element.src;
-  formImg.alt = element.alt;
-  formImgTitle.textContent = element.alt;
-};
+  formImg.src = element.image;
+  formImg.alt = element.title;
+  formImgTitle.textContent = element.title;
+};  
 
 function addCard(image, title) {
   const cardFull = cardTemplate.querySelector('.element').cloneNode(true);
@@ -74,7 +73,7 @@ function addCard(image, title) {
   cardFull.querySelector('.element__title').textContent = title;
   cardFull.querySelector('.element__like').addEventListener('click', likeCard);
   cardFull.querySelector('.element__delete').addEventListener('click', removeCard);
-  cardImage.addEventListener('click', () => scaleImage(cardImage));
+  cardImage.addEventListener('click', () => scaleImage({ image, title })); 
   return cardFull;
 };
 
@@ -104,14 +103,10 @@ profileEditOpenBtn.addEventListener('click', openPropfilePopup);
 
 cardAddOpenBtn.addEventListener('click', () => openPopup(popupForAddCard));
 
-popupCloseBtnList.forEach((item) => {
-  item.addEventListener('click', () => closePopup(item.closest('.popup')));
-});
-
 popupList.forEach((item) => {
-  item.addEventListener('click', function (evt) {
-    if (evt.target.classList.contains('popup_visible')) {
-      closePopup(evt.target);
+  item.addEventListener('mousedown', function (evt) {
+    if (evt.target.classList.contains('popup_visible') || evt.target.classList.contains('popup__close-btn')) {
+      closePopup(item);
     };
   });
 });
