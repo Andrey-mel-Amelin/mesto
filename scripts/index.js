@@ -5,8 +5,8 @@ const popupForScaleImg = document.querySelector('.popup_for_scale-image');
 const profileEditOpenBtn = document.querySelector('.profile__edit-btn');
 const cardAddOpenBtn = document.querySelector('.profile__add-card-btn');
 
-const formForEditAuthor = popupForEditAuthor.querySelector('.form');
-const formForAddCard = popupForAddCard.querySelector('.form');
+const formForEditAuthor = popupForEditAuthor.querySelector('.form_for_edit-author');
+const formForAddCard = popupForAddCard.querySelector('.form_for_add-card');
 const formInputImage = formForAddCard.querySelector('.form__input_info_link-img');
 const formInputTitle = formForAddCard.querySelector('.form__input_info_name-card');
 const formImg = document.querySelector('.popup__image');
@@ -86,10 +86,11 @@ function submitAddCard(evt) {
   
   const element = addCard(formInputImage.value, formInputTitle.value);
   const submitButton = evt.target.querySelector('.form__save');
+  const buttonInactive = {inactiveButtonClass: 'form__save_inactive'};
 
   renderCard(cardElements, element);
   closePopup(popupForAddCard);
-  buttonDisabled(submitButton);
+  buttonDisabled(submitButton, buttonInactive);
 
   formForAddCard.reset();
 };
