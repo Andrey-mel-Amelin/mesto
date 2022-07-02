@@ -1,10 +1,12 @@
-import { openPopup } from "./index.js";
+import { openPopup } from "./Index.js";
 
 export default class Card {
   constructor(data, cardSelector) {
     this._title = data.name;
     this._imageLink = data.link;
     this._cardSelector = cardSelector;
+    this._element = this._getTemplate();
+    this._image = this._element.querySelector('.element__image');
   };
 
   _getTemplate() {
@@ -37,21 +39,16 @@ export default class Card {
   };
 
   _setEventListener() {
-    this._element = this._getTemplate();
-
     this._element.querySelector('.element__like').addEventListener('click', this._like);
     this._element.querySelector('.element__delete').addEventListener('click', this._removeCard);
-    this._element.querySelector('.element__image').addEventListener('click', this._scaleImage);
+    this._image.addEventListener('click', this._scaleImage);
   };
 
   generateCard() {
-    this._element = this._getTemplate();
     this._setEventListener();
 
-    const image = this._element.querySelector('.element__image');
-
-    image.src = this._imageLink;
-    image.alt = this._title;
+    this._image.src = this._imageLink;
+    this._image.alt = this._title;
     this._element.querySelector('.element__title').textContent = this._title;
 
     return this._element;

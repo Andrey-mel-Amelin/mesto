@@ -1,4 +1,4 @@
-import Card from './card.js';
+import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 
 const selectorsNamesForValidation = {
@@ -92,21 +92,22 @@ function renderCard(elementPlace, element) {
   elementPlace.prepend(element);
 };
 
+function newCard(card) {
+  const element = new Card(card, '#card').generateCard();
+  renderCard(cardElements, element);
+};
+
 function submitAddCard(evt) {
   evt.preventDefault();
 
-  const newCard = [];
-  newCard.link = formInputImage.value;
-  newCard.name = formInputTitle.value;
-  const buttonSubmit = evt.target.querySelector('.form__save');
-  const element = new Card(newCard, '#card').generateCard();
+  const card = [];
+  card.link = formInputImage.value;
+  card.name = formInputTitle.value;
+  newCard(card);
 
-  buttonSubmit.classList.add('form__save_inactive');
-  buttonSubmit.disabled = true;
+  new FormValidator(selectorsNamesForValidation, formForAddCard).disabledButton();
   
-  renderCard(cardElements, element);
   closePopup(popupForAddCard);
-
   formForAddCard.reset();
 };
 
@@ -127,8 +128,5 @@ formForEditAuthor.addEventListener('submit', submitProfileInfo);
 formForAddCard.addEventListener('submit', submitAddCard);
 
 initialCards.forEach((item) => {
-  const card = new Card(item, '#card');
-  const cardElement = card.generateCard();
-
-  renderCard(cardElements, cardElement);
+  newCard(item);
 });
