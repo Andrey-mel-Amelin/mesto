@@ -1,7 +1,18 @@
+import Card from './card.js';
+import FormValidator from './FormValidator.js';
+
+const selectorsNamesForValidation = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__save',
+  inactiveButtonClass: 'form__save_inactive',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active'
+};
+
 const popupList = document.querySelectorAll('.popup');
 const popupForEditAuthor = document.querySelector('.popup_for_edit-author');
 const popupForAddCard = document.querySelector('.popup_for_add-card');
-const popupForScaleImg = document.querySelector('.popup_for_scale-image');
 const profileEditOpenBtn = document.querySelector('.profile__edit-btn');
 const cardAddOpenBtn = document.querySelector('.profile__add-card-btn');
 
@@ -9,8 +20,6 @@ const formForEditAuthor = popupForEditAuthor.querySelector('.form_for_edit-autho
 const formForAddCard = popupForAddCard.querySelector('.form_for_add-card');
 const formInputImage = formForAddCard.querySelector('.form__input_info_link-img');
 const formInputTitle = formForAddCard.querySelector('.form__input_info_name-card');
-const formImg = document.querySelector('.popup__image');
-const formImgTitle = document.querySelector('.popup__image-title');
 
 const authorProfile = document.querySelector('.profile__author');
 const authorJobProfile = document.querySelector('.profile__author-job');
@@ -18,9 +27,38 @@ const authorProfileInput = document.querySelector('.form__input_info_name-author
 const authorJobProfileInput = document.querySelector('.form__input_info_name-author-job');
 
 const cardElements = document.querySelector('.elements');
-const cardTemplate = document.querySelector('#card').content;
 
-function openPopup(popup) {
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
+new FormValidator(selectorsNamesForValidation, formForEditAuthor).enableValidation();
+new FormValidator(selectorsNamesForValidation, formForAddCard).enableValidation();
+
+export function openPopup(popup) {
   popup.classList.add('popup_visible');
   document.addEventListener('keydown', popupCloseEsc);
 };
@@ -50,55 +88,27 @@ function submitProfileInfo(evt) {
   closePopup(popupForEditAuthor);
 };
 
-function likeCard(evt) {
-  evt.target.classList.toggle('element__like_active');
-};
-
-function removeCard(evt) {
-  evt.target.closest('.element').remove();
-};
-
-function scaleImage(element) {
-  openPopup(popupForScaleImg);
-  formImg.src = element.image;
-  formImg.alt = element.title;
-  formImgTitle.textContent = element.title;
-};  
-
-function addCard(image, title) {
-  const cardFull = cardTemplate.querySelector('.element').cloneNode(true);
-  const cardImage = cardFull.querySelector('.element__image');
-  cardImage.src = image;
-  cardImage.alt = title;
-  cardFull.querySelector('.element__title').textContent = title;
-  cardFull.querySelector('.element__like').addEventListener('click', likeCard);
-  cardFull.querySelector('.element__delete').addEventListener('click', removeCard);
-  cardImage.addEventListener('click', () => scaleImage({ image, title })); 
-  return cardFull;
-};
-
 function renderCard(elementPlace, element) {
   elementPlace.prepend(element);
 };
 
 function submitAddCard(evt) {
   evt.preventDefault();
-  
-  const element = addCard(formInputImage.value, formInputTitle.value);
-  const submitButton = evt.target.querySelector('.form__save');
-  const buttonInactive = {inactiveButtonClass: 'form__save_inactive'};
 
+  const newCard = [];
+  newCard.link = formInputImage.value;
+  newCard.name = formInputTitle.value;
+  const buttonSubmit = evt.target.querySelector('.form__save');
+  const element = new Card(newCard, '#card').generateCard();
+
+  buttonSubmit.classList.add('form__save_inactive');
+  buttonSubmit.disabled = true;
+  
   renderCard(cardElements, element);
   closePopup(popupForAddCard);
-  buttonDisabled(submitButton, buttonInactive);
 
   formForAddCard.reset();
 };
-
-initialCards.forEach((item) => {
-  const element = addCard(item.link, item.name);
-  renderCard(cardElements, element);
-});
 
 profileEditOpenBtn.addEventListener('click', openPropfilePopup);
 
@@ -115,3 +125,10 @@ popupList.forEach((item) => {
 formForEditAuthor.addEventListener('submit', submitProfileInfo);
 
 formForAddCard.addEventListener('submit', submitAddCard);
+
+initialCards.forEach((item) => {
+  const card = new Card(item, '#card');
+  const cardElement = card.generateCard();
+
+  renderCard(cardElements, cardElement);
+});

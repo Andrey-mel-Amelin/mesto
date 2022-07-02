@@ -37,7 +37,7 @@
     </section>
   </main>
   <footer class="footer">
-    <p class="footer__copyright">© 2020 Mesto Russia</p>
+    <p class="footer__copyright">© 2022 Амелин Андрей</p>
   </footer>
   <div class="popup popup_for_edit-author">
     <div class="popup__container">
@@ -50,7 +50,7 @@
         <input class="form__input form__input_info_name-author-job" id="name-author-job-input"
           placeholder="Профессия автора" type="text" minlength="2" maxlength="200" required />
         <span class="form__input-error name-author-job-input-error"></span>
-        <button class="form__save" type="submit">Сохранить</button>
+        <button class="form__save form__save_inactive" type="submit">Сохранить</button>
       </form>
     </div>
   </div>
@@ -65,7 +65,7 @@
         <input class="form__input form__input_info_link-img" id="link-img-input" placeholder="Ссылка на картинку"
           type="url" required />
         <span class="form__input-error link-img-input-error"></span>
-        <button class="form__save" type="submit">Создать</button>
+        <button class="form__save form__save_inactive" type="submit">Создать</button>
       </form>
     </div>
   </div>
@@ -78,9 +78,9 @@
       </figure>
     </div>
   </div>
-  <script src="./scripts/cards.js"></script>
-  <script src="./scripts/index.js"></script>
-  <script src="./scripts/validate.js"></script>
+  <script type="module" src="./scripts/index.js"></script>
+  <script type="module" src="./scripts/card.js"></script>
+  <script type="module" src="./scripts/FormValidator.js"></script>
 </body>
 
 </html>

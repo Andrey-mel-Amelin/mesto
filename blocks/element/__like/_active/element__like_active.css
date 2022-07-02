@@ -2,3 +2,7 @@
   background-image: url(../../../../images/element/heart-active.svg);
   opacity: 1;
 }
+
+.element__like_active:hover {
+  opacity: 1;
+}
