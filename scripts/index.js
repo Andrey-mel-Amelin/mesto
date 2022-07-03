@@ -28,6 +28,7 @@ const authorJobProfileInput = document.querySelector('.form__input_info_name-aut
 
 const cardElements = document.querySelector('.elements');
 
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -55,8 +56,8 @@ const initialCards = [
   }
 ];
 
-new FormValidator(selectorsNamesForValidation, formForEditAuthor).enableValidation();
-new FormValidator(selectorsNamesForValidation, formForAddCard).enableValidation();
+const validatorFormForEditAuthor = new FormValidator(selectorsNamesForValidation, formForEditAuthor);
+const validatorFromForAddCard = new FormValidator(selectorsNamesForValidation, formForAddCard);
 
 export function openPopup(popup) {
   popup.classList.add('popup_visible');
@@ -92,28 +93,33 @@ function renderCard(elementPlace, element) {
   elementPlace.prepend(element);
 };
 
-function newCard(card) {
-  const element = new Card(card, '#card').generateCard();
-  renderCard(cardElements, element);
+function handleNewCard(card) {
+  const newCard = new Card(card, '#card').generateCard();
+  return newCard;
 };
 
 function submitAddCard(evt) {
   evt.preventDefault();
 
-  const card = [];
-  card.link = formInputImage.value;
-  card.name = formInputTitle.value;
-  newCard(card);
+  const cardContainer = [];
+  cardContainer.link = formInputImage.value;
+  cardContainer.name = formInputTitle.value;
 
-  new FormValidator(selectorsNamesForValidation, formForAddCard).disabledButton();
+  renderCard(cardElements, handleNewCard(cardContainer));
   
+  validatorFromForAddCard.disabledButton();
   closePopup(popupForAddCard);
   formForAddCard.reset();
 };
 
-profileEditOpenBtn.addEventListener('click', openPropfilePopup);
+validatorFormForEditAuthor.enableValidation();
+validatorFromForAddCard.enableValidation();
 
+profileEditOpenBtn.addEventListener('click', openPropfilePopup);
 cardAddOpenBtn.addEventListener('click', () => openPopup(popupForAddCard));
+
+formForEditAuthor.addEventListener('submit', submitProfileInfo);
+formForAddCard.addEventListener('submit', submitAddCard);
 
 popupList.forEach((item) => {
   item.addEventListener('mousedown', function (evt) {
@@ -123,10 +129,6 @@ popupList.forEach((item) => {
   });
 });
 
-formForEditAuthor.addEventListener('submit', submitProfileInfo);
-
-formForAddCard.addEventListener('submit', submitAddCard);
-
 initialCards.forEach((item) => {
-  newCard(item);
+  renderCard(cardElements, handleNewCard(item));
 });

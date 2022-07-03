@@ -1,4 +1,4 @@
-import { openPopup } from "./Index.js";
+import { openPopup } from "./index.js";
 
 export default class Card {
   constructor(data, cardSelector) {
@@ -6,7 +6,6 @@ export default class Card {
     this._imageLink = data.link;
     this._cardSelector = cardSelector;
     this._element = this._getTemplate();
-    this._image = this._element.querySelector('.element__image');
   };
 
   _getTemplate() {
@@ -39,6 +38,7 @@ export default class Card {
   };
 
   _setEventListener() {
+    this._image = this._element.querySelector('.element__image');
     this._element.querySelector('.element__like').addEventListener('click', this._like);
     this._element.querySelector('.element__delete').addEventListener('click', this._removeCard);
     this._image.addEventListener('click', this._scaleImage);
