@@ -127,6 +127,11 @@ function submitAddCard(evt) {
   formForAddCard.reset();
 }
 
+window.onload = function () {
+  const body = document.querySelector('.page');
+  body.style.display = 'flex';
+};
+
 validatorFormForEditAuthor.enableValidation();
 validatorFromForAddCard.enableValidation();
 
