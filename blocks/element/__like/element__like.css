@@ -15,7 +15,7 @@
   transition: .5s;
 }
 
-@media screen and (min-width: 769px) {
+@media (hover: hover) and (pointer: fine) {
   .element__like:hover {
       transition: .5s;
       opacity: 0.5;
