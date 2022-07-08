@@ -37,10 +37,19 @@ export default class FormValidator {
   }
 
   _hasInvalidInput() {
-    return this._inputList.some((item) => {
-      return !item.validity.valid;
+    return this._inputList.some((input) => {
+      return !input.validity.valid;
     });
-  }
+  };
+
+  _hasInputWithoutSpaces() {
+    return this._inputList.some((input) => {
+      if (input.type === 'url' && input.value !== '' && input.value.includes(' ')) {
+        this._showInputError(input, 'Использование пробелов в ссылке запрещено.');
+        return true
+      };
+    });
+  };
 
   _disabledButton() {
     this._buttonElement.classList.add(this._selectorsNames.inactiveButtonClass);
@@ -55,7 +64,7 @@ export default class FormValidator {
   }
 
   _toggleButtonState() {
-    if (this._hasInvalidInput()) {
+    if (this._hasInvalidInput() ||  this._hasInputWithoutSpaces()) {
       this._disabledButton();
     } else {
       this._activeButton();
