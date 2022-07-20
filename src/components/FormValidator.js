@@ -2,30 +2,22 @@ export default class FormValidator {
   constructor(selectorsNames, formElement) {
     this._formElement = formElement;
     this._selectorsNames = selectorsNames;
-    this._buttonElement = this._formElement.querySelector(
-      this._selectorsNames.submitButtonSelector
-    );
-    this._inputList = Array.from(
-      formElement.querySelectorAll(this._selectorsNames.inputSelector)
-    );
+    this._buttonElement = this._formElement.querySelector(this._selectorsNames.submitButtonSelector);
+    this._inputsList = Array.from(formElement.querySelectorAll(this._selectorsNames.inputSelector));
   }
 
   _showInputError(inputElement, errorMessage) {
-    const errorElement = this._formElement.querySelector(
-      `.${inputElement.id}-error`
-    );
+    const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add(this._selectorsNames.inputErrorClass);
     errorElement.classList.add(this._selectorsNames.errorClass);
     errorElement.textContent = errorMessage;
   }
 
   _hideInputError(inputElement) {
-    const errorElement = this._formElement.querySelector(
-      `.${inputElement.id}-error`
-    );
+    const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.remove(this._selectorsNames.inputErrorClass);
     errorElement.classList.remove(this._selectorsNames.errorClass);
-    errorElement.textContent = "";
+    errorElement.textContent = '';
   }
 
   _checkInputValidity(inputElement) {
@@ -37,19 +29,19 @@ export default class FormValidator {
   }
 
   _hasInvalidInput() {
-    return this._inputList.some((input) => {
+    return this._inputsList.some((input) => {
       return !input.validity.valid;
     });
-  };
+  }
 
   _hasInputWithoutSpaces() {
-    return this._inputList.some((input) => {
+    return this._inputsList.some((input) => {
       if (input.type === 'url' && input.value !== '' && input.value.includes(' ')) {
         this._showInputError(input, 'Использование пробелов в ссылке запрещено.');
-        return true
-      };
+        return true;
+      }
     });
-  };
+  }
 
   _disabledButton() {
     this._buttonElement.classList.add(this._selectorsNames.inactiveButtonClass);
@@ -57,14 +49,12 @@ export default class FormValidator {
   }
 
   _activeButton() {
-    this._buttonElement.classList.remove(
-      this._selectorsNames.inactiveButtonClass
-    );
+    this._buttonElement.classList.remove(this._selectorsNames.inactiveButtonClass);
     this._buttonElement.disabled = false;
   }
 
   _toggleButtonState() {
-    if (this._hasInvalidInput() ||  this._hasInputWithoutSpaces()) {
+    if (this._hasInvalidInput() || this._hasInputWithoutSpaces()) {
       this._disabledButton();
     } else {
       this._activeButton();
@@ -74,14 +64,14 @@ export default class FormValidator {
   resetValidation() {
     this._toggleButtonState();
 
-    this._inputList.forEach((item) => {
+    this._inputsList.forEach((item) => {
       this._hideInputError(item);
     });
   }
 
   _setEventListeners() {
-    this._inputList.forEach((inputElement) => {
-      inputElement.addEventListener("input", () => {
+    this._inputsList.forEach((inputElement) => {
+      inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);
         this._toggleButtonState();
       });

@@ -5,7 +5,6 @@
   <meta name="author" content="Амелин Андрей">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
   <title>Место - страничка с карточками</title>
 </head>
 
@@ -15,7 +14,7 @@
   </header>
   <main class="content">
     <section class="profile">
-      <img class="profile__avatar" src="./images/profile/avatar.jpg" alt="Аватар">
+      <img class="profile__avatar" src="<%=require('./images//profile/avatar.jpg')%>" alt="Аватар">
       <div class="profile__profile-info">
         <div class="profile__author-container">
           <h1 class="profile__author">Жак-Ив Кусто</h1>
@@ -44,10 +43,10 @@
       <button class="popup__close-btn" aria-label="Закрытие формы" type="button"></button>
       <form class="form form_for_edit-author" novalidate>
         <h2 class="form__title">Редактировать профиль</h2>
-        <input class="form__input form__input_info_name-author" id="name-author-input" placeholder="Имя автора"
-          type="text" minlength="2" maxlength="40" required />
+        <input name="nameAuthor" class="form__input form__input_info_name-author" id="name-author-input"
+          placeholder="Имя автора" type="text" minlength="2" maxlength="40" required />
         <span class="form__input-error name-author-input-error"></span>
-        <input class="form__input form__input_info_name-author-job" id="name-author-job-input"
+        <input name="infoAuthor" class="form__input form__input_info_name-author-job" id="name-author-job-input"
           placeholder="Профессия автора" type="text" minlength="2" maxlength="200" required />
         <span class="form__input-error name-author-job-input-error"></span>
         <button class="form__save form__save_inactive" type="submit">Сохранить</button>
@@ -59,11 +58,11 @@
       <button class="popup__close-btn" aria-label="Закрытие формы" type="button"></button>
       <form class="form form_for_add-card" novalidate>
         <h2 class="form__title">Новое место</h2>
-        <input class="form__input form__input_info_name-card" id="name-card-input" placeholder="Название" type="text"
-          minlength="2" maxlength="30" required />
+        <input class="form__input form__input_info_name-card" id="name-card-input" placeholder="Название"
+          type="text" minlength="2" maxlength="30" required />
         <span class="form__input-error name-card-input-error"></span>
-        <input class="form__input form__input_info_link-img" id="link-img-input" placeholder="Ссылка на картинку"
-          type="url" required />
+        <input class="form__input form__input_info_link-img" id="link-img-input"
+          placeholder="Ссылка на картинку" type="url" required />
         <span class="form__input-error link-img-input-error"></span>
         <button class="form__save form__save_inactive" type="submit">Создать</button>
       </form>
@@ -78,9 +77,6 @@
       </figure>
     </div>
   </div>
-  <script type="module" src="./scripts/index.js"></script>
-  <script type="module" src="./scripts/Card.js"></script>
-  <script type="module" src="./scripts/FormValidator.js"></script>
 </body>
 
 </html>
