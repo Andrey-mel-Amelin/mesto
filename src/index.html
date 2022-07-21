@@ -58,10 +58,10 @@
       <button class="popup__close-btn" aria-label="Закрытие формы" type="button"></button>
       <form class="form form_for_add-card" novalidate>
         <h2 class="form__title">Новое место</h2>
-        <input class="form__input form__input_info_name-card" id="name-card-input" placeholder="Название"
+        <input name="name" class="form__input form__input_info_name-card" id="name-card-input" placeholder="Название"
           type="text" minlength="2" maxlength="30" required />
         <span class="form__input-error name-card-input-error"></span>
-        <input class="form__input form__input_info_link-img" id="link-img-input"
+        <input name="link" class="form__input form__input_info_link-img" id="link-img-input"
           placeholder="Ссылка на картинку" type="url" required />
         <span class="form__input-error link-img-input-error"></span>
         <button class="form__save form__save_inactive" type="submit">Создать</button>
