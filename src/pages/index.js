@@ -48,11 +48,10 @@ const popupCard = new PopupWithForm(popupForAddCard, (data) => {
   cards.addItem(handleNewCard(data));
 });
 const popupScaleImage = new PopupWithImage(popupForScaleImage);
-  
+
 /* ниже функции(методы) и их вызовы */
 
 function handleCardClick(evt) {
-  popupScaleImage.setEventListeners();
   popupScaleImage.open(evt.target);
 }
 
@@ -66,6 +65,7 @@ validatorFromForAddCard.enableValidation();
 cards.renderItems();
 popupProfile.setEventListeners();
 popupCard.setEventListeners();
+popupScaleImage.setEventListeners();
 
 /* ниже прослушиватели */
 
