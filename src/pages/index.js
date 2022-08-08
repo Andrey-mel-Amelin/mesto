@@ -114,7 +114,7 @@ popupProfile.setEventListeners();
 popupCard.setEventListeners();
 popupScaleImage.setEventListeners();
 popupCardRemove.setEventListeners();
-popupEditProfile.setEventListeners();
+popupEditAvatar.setEventListeners();
 
 /* ниже прослушиватели */
 
