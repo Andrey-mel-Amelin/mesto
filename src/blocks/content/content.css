@@ -1,6 +1,7 @@
 .content {
   margin: 0 auto;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   width: calc(100% - 2 * 200px);
   flex: 1;
 }

@@ -1,4 +1,5 @@
 .element__delete {
+  display: none;
   padding: 0;
   position: absolute;
   z-index: 5;

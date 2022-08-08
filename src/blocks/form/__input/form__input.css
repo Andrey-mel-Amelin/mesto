@@ -6,16 +6,18 @@
   height: 31px;
   font-size: 14px;
   line-height: 17px;
-  margin-top: 41px;
 }
 
-.form__input:last-of-type {
-  margin-top: 23px;
+.form__input:first-of-type {
+  margin: 41px 0 23px;
 }
 
 @media screen and (max-width: 767px) {
   .form__input {
-    margin-top: 68px;
     min-width: 238px;
+  }
+  
+  .form__input:first-of-type {
+    margin: 68px 0 23px;
   }
 }
