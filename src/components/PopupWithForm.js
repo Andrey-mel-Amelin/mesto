@@ -5,17 +5,13 @@ export default class PopupWithForm extends Popup {
     super(popupSelector);
     this._formContainer = this._popup.querySelector('.form');
     this._inputsList = this._formContainer.querySelectorAll('.form__input');
+    this._submitButton = this._popup.querySelector('.form__submit');
     this._submitForm = submitForm;
-    this._textButtonSubmit = this._submitButton.textContent;
   }
 
   downloadProcces(download, line) {
-    console.log(download);
     if (download) {
       this._submitButton.textContent = line;
-      console.log(this._submitButton.textContent);
-    } else {
-      this._submitButton.textContent = this._textButtonSubmit;
     }
   }
 
@@ -29,8 +25,8 @@ export default class PopupWithForm extends Popup {
     return this._formValues;
   }
 
-  _close() {
-    super._close();
+  close() {
+    super.close();
     this._formContainer.reset();
   }
 
@@ -40,7 +36,6 @@ export default class PopupWithForm extends Popup {
     this._formContainer.addEventListener('submit', (evt) => {
       evt.preventDefault();
       this._submitForm(this._getInputValues());
-      this.close();
     });
   }
 }

@@ -4,97 +4,47 @@ export default class Api {
     this._headers = headers;
   }
 
+  _getResponseData(res) {
+    if (!res.ok) {
+      return Promise.reject(`Ошибка: ${res.status}`);
+    }
+    return res.json();
+  }
+
   _getFetch(pathUrl) {
     return fetch(`${this._baseUrl}${pathUrl}`, {
-      headers: {
-        authorization: this._headers,
-      },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(`${err}. Запрос не выполнен`);
-      });
+      headers: this._headers,
+    }).then((res) => this._getResponseData(res));
   }
 
   _patchFetch(pathUrl, bodyConstructor) {
     return fetch(`${this._baseUrl}${pathUrl}`, {
       method: 'PATCH',
-      headers: {
-        authorization: this._headers,
-        'Content-Type': 'application/json',
-      },
+      headers: this._headers,
       body: bodyConstructor,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(`${err}. Запрос не выполнен`);
-      });
+    }).then((res) => this._getResponseData(res));
   }
 
   _postFetch(pathUrl, bodyConstructor) {
     return fetch(`${this._baseUrl}${pathUrl}`, {
       method: 'POST',
-      headers: {
-        authorization: this._headers,
-        'Content-Type': 'application/json',
-      },
+      headers: this._headers,
       body: bodyConstructor,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(`${err}. Запрос не выполнен`);
-      });
+    }).then((res) => this._getResponseData(res));
   }
 
   _deleteFetch(pathUrl) {
     return fetch(`${this._baseUrl}${pathUrl}`, {
       method: 'DELETE',
-      headers: {
-        authorization: this._headers,
-      },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(`${err}. Запрос не выполнен`);
-      });
+      headers: this._headers,
+    }).then((res) => this._getResponseData(res));
   }
 
   _putFetch(pathUrl) {
     return fetch(`${this._baseUrl}${pathUrl}`, {
       method: 'PUT',
-      headers: {
-        authorization: this._headers,
-      },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(`${err}. Запрос не выполнен`);
-      });
+      headers: this._headers,
+    }).then((res) => this._getResponseData(res));
   }
 
   getUserInfo() {
@@ -116,10 +66,12 @@ export default class Api {
   }
 
   editProfileAvatar(data) {
-    return this._patchFetch(`/users/me/avatar`,
+    return this._patchFetch(
+      `/users/me/avatar`,
       JSON.stringify({
-        avatar: data
-    }));
+        avatar: data,
+      })
+    );
   }
 
   addCard(data) {

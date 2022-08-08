@@ -1,8 +1,8 @@
 export default class UserInfo {
-  constructor({ nameAuthor, infoAuthor, avatarAuthor }) {
-    this._nameAuthor = nameAuthor;
-    this._infoAuthor = infoAuthor;
-    this._avatar = avatarAuthor;
+  constructor({ selectorNameAuthor, selectorInfoAuthor, selectorAvatarAuthor }) {
+    this._nameAuthor = document.querySelector(selectorNameAuthor);
+    this._infoAuthor = document.querySelector(selectorInfoAuthor);
+    this._avatar = document.querySelector(selectorAvatarAuthor);
   }
 
   getUserInfo() {
@@ -12,10 +12,6 @@ export default class UserInfo {
       avatarAuthor: this._avatar.src
     };
     return this._userInfoValues;
-  }
-
-  setUserAvatar(newData) {
-    this._avatar.src = newData.avatar;
   }
 
   setUserInfo(newData) {

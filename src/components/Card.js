@@ -38,16 +38,23 @@ export default class Card {
     });
   }
 
+  like() {
+    this._elementLike.classList.add('element__like_active');
+  }
+
+  disLike() {
+    this._elementLike.classList.remove('element__like_active');
+  }
+
   _setEventListener() {
     this._image = this._element.querySelector('.element__image');
-    this._elementLike.addEventListener('click', (evt) => {
+    this._elementLike.addEventListener('click', () => {
       if (this._elementLike.classList.contains('element__like_active')) {
         this._handleDeleteLikeCard();
       } else {
         this._handleLikeCard();
       }
-      evt.target.classList.toggle('element__like_active');
-    });
+    })
     this._element
       .querySelector('.element__delete')
       .addEventListener('click', () => this._handleRemoveCard(this._cardId, this._element));
@@ -63,7 +70,7 @@ export default class Card {
     this._image.alt = this._title;
     this._element.querySelector('.element__title').textContent = this._title;
     if (this._ownerId === this._userId) {
-      this._element.querySelector('.element__delete').style.display = 'flex';
+      this._element.querySelector('.element__delete').classList.add('element__delete_active');
     }
 
     return this._element;

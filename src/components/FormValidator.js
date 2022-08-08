@@ -4,6 +4,7 @@ export default class FormValidator {
     this._selectorsNames = selectorsNames;
     this._buttonElement = this._formElement.querySelector(this._selectorsNames.submitButtonSelector);
     this._inputsList = Array.from(formElement.querySelectorAll(this._selectorsNames.inputSelector));
+    this._buttonElementText = this._buttonElement.textContent
   }
 
   _showInputError(inputElement, errorMessage) {
@@ -63,7 +64,8 @@ export default class FormValidator {
 
   resetValidation() {
     this._toggleButtonState();
-
+    this._buttonElement.textContent = this._buttonElementText
+    
     this._inputsList.forEach((item) => {
       this._hideInputError(item);
     });

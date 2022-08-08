@@ -20,73 +20,98 @@ import {
   formForEditAuthor,
   formForAddCard,
   formForEditAvatar,
-  authorProfile,
-  authorJobProfile,
   authorProfileInput,
   authorJobProfileInput,
-  authorAvatar,
   placeElements,
 } from '../utils/constants.js';
 let userId;
 
 /* создание экземпляров классов */
 
-const api = new Api('https://mesto.nomoreparties.co/v1/cohort-47', '5fdce57e-bdf1-4323-905c-051e07965f28');
+const api = new Api('https://mesto.nomoreparties.co/v1/cohort-47', {
+  authorization: '5fdce57e-bdf1-4323-905c-051e07965f28',
+  'Content-Type': 'application/json',
+});
 
 const validatorFormForEditAuthor = new FormValidator(selectorsNamesForValidation, formForEditAuthor);
 const validatorFromForAddCard = new FormValidator(selectorsNamesForValidation, formForAddCard);
 const validatorFromForEditAvatar = new FormValidator(selectorsNamesForValidation, formForEditAvatar);
 
-const cards = new Section(
-  {
-    items: api.getCards().then((res) => res.reverse()),
-    renderer: (item) => {
-      const cardItem = handleNewCard(item);
-      cards.addItem(cardItem);
-    },
-  },
-  placeElements
-);
+const cards = new Section((item) => {
+  const cardItem = handleNewCard(item);
+  cards.addItem(cardItem);
+}, placeElements);
 
 const dataInfo = new UserInfo({
-  nameAuthor: authorProfile,
-  infoAuthor: authorJobProfile,
-  avatarAuthor: authorAvatar,
+  selectorNameAuthor: '.profile__author',
+  selectorInfoAuthor: '.profile__author-job',
+  selectorAvatarAuthor: '.profile__avatar',
 });
 
-api.getUserInfo().then((res) => {
-  dataInfo.setUserInfo(res);
-  userId = res._id;
-});
-
-const popupProfile = new PopupWithForm(popupForEditAuthor, async function (data) {
+const popupProfile = new PopupWithForm(popupForEditAuthor, (data) => {
   popupProfile.downloadProcces(true, 'Сохранение...');
-  dataInfo.setUserInfo(await api.editProfile(data).finally(popupProfile.downloadProcces(false)));
+  api
+    .editProfile(data)
+    .then((userInfo) => {
+      dataInfo.setUserInfo(userInfo);
+      popupProfile.close();
+    })
+    .catch((err) => console.log(`Ошибка.....: ${err}`))
+    .finally(popupProfile.downloadProcces(false));
 });
-const popupCard = new PopupWithForm(popupForAddCard, async function (data) {
+const popupCard = new PopupWithForm(popupForAddCard, (data) => {
   popupCard.downloadProcces(true, 'Сохранение...');
-  cards.addItem(handleNewCard(await api.addCard(data).finally(popupCard.downloadProcces(false))));
+  api
+    .addCard(data)
+    .then((card) => {
+      cards.addItem(handleNewCard(card));
+      popupCard.close();
+    })
+    .catch((err) => console.log(`Ошибка.....: ${err}`))
+    .finally(popupCard.downloadProcces(false));
 });
 const popupScaleImage = new PopupWithImage(popupForScaleImage);
 const popupCardRemove = new PopupWithConfirm(popupForRemoveCard, async function (cardId, card) {
   popupCardRemove.downloadProcces(true, 'Удаление...');
-  api.deleteCard(cardId).finally(popupCardRemove.downloadProcces(false));
+  api
+    .deleteCard(cardId)
+    .then(() => {
+      popupCardRemove.close();
+    })
+    .catch((err) => console.log(`Ошибка.....: ${err}`))
+    .finally(popupCardRemove.downloadProcces(false));
   card.remove();
   card = null;
 });
 const popupEditAvatar = new PopupWithForm(popupForEditAvatar, async function (data) {
   popupEditAvatar.downloadProcces(true, 'Сохранение...');
-  api.editProfileAvatar(data.link).finally(popupEditAvatar.downloadProcces(false));
+  api
+    .editProfileAvatar(data.link)
+    .then((data) => {
+      dataInfo.setUserInfo(data), popupEditAvatar.close();
+    })
+    .catch((err) => console.log(`Ошибка.....: ${err}`))
+    .finally(popupEditAvatar.downloadProcces(false));
 });
 
 /* ниже функции(методы) и их вызовы */
+
+Promise.all([api.getUserInfo(), api.getCards()])
+  .then(([info, initialCards]) => {
+    userId = info._id;
+    dataInfo.setUserInfo(info);
+    cards.renderItems(initialCards);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 async function handleCardClick(evt) {
   return popupScaleImage.open(evt.target);
 }
 
 async function handleRemoveCard(cardId, card) {
-  return popupCardRemove.open(cardId, card);
+  popupCardRemove.open(cardId, card);
 }
 
 function handleNewCard(card) {
@@ -97,10 +122,18 @@ function handleNewCard(card) {
     userId,
     handleRemoveCard,
     () => {
-      api.likeCard(card._id).then((res) => newCard.likesAmount(res.likes));
+      api
+        .likeCard(card._id)
+        .then((res) => newCard.likesAmount(res.likes), newCard.like())
+        .catch((err) => console.log(`Ошибка.....: ${err}`));
     },
     () => {
-      api.deleteLikeCard(card._id).then((res) => newCard.likesAmount(res.likes));
+      api
+        .deleteLikeCard(card._id)
+        .then((res) => {
+          newCard.likesAmount(res.likes), newCard.disLike();
+        })
+        .catch((err) => console.log(`Ошибка.....: ${err}`));
     }
   );
   return newCard.generateCard();
@@ -109,7 +142,6 @@ function handleNewCard(card) {
 validatorFormForEditAuthor.enableValidation();
 validatorFromForAddCard.enableValidation();
 validatorFromForEditAvatar.enableValidation();
-cards.renderItems();
 popupProfile.setEventListeners();
 popupCard.setEventListeners();
 popupScaleImage.setEventListeners();

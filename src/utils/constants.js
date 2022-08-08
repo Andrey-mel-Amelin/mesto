@@ -20,10 +20,7 @@ export const formForEditAuthor = popupForEditAuthor.querySelector('.form_for_edi
 export const formForAddCard = popupForAddCard.querySelector('.form_for_add-card');
 export const formForEditAvatar = popupForEditAvatar.querySelector('.form_for_edit-avatar');
 
-export const authorProfile = document.querySelector('.profile__author');
-export const authorJobProfile = document.querySelector('.profile__author-job');
 export const authorProfileInput = document.querySelector('.form__input_info_name-author');
 export const authorJobProfileInput = document.querySelector('.form__input_info_name-author-job');
-export const authorAvatar = document.querySelector('.profile__avatar');
 
 export const placeElements = document.querySelector('.elements');
