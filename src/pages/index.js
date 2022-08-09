@@ -22,7 +22,6 @@ import {
   formForEditAvatar,
   authorProfileInput,
   authorJobProfileInput,
-  placeElements,
 } from '../utils/constants.js';
 let userId;
 
@@ -38,9 +37,9 @@ const validatorFromForAddCard = new FormValidator(selectorsNamesForValidation, f
 const validatorFromForEditAvatar = new FormValidator(selectorsNamesForValidation, formForEditAvatar);
 
 const cards = new Section((item) => {
-  const cardItem = handleNewCard(item);
+  const cardItem = handleNewCard(item).generateCard();
   cards.addItem(cardItem);
-}, placeElements);
+}, '.elements');
 
 const dataInfo = new UserInfo({
   selectorNameAuthor: '.profile__author',
@@ -64,31 +63,32 @@ const popupCard = new PopupWithForm(popupForAddCard, (data) => {
   api
     .addCard(data)
     .then((card) => {
-      cards.addItem(handleNewCard(card));
+      cards.addItem(handleNewCard(card).generateCard());
       popupCard.close();
     })
     .catch((err) => console.log(`Ошибка.....: ${err}`))
     .finally(popupCard.downloadProcces(false));
 });
 const popupScaleImage = new PopupWithImage(popupForScaleImage);
-const popupCardRemove = new PopupWithConfirm(popupForRemoveCard, async function (cardId, card) {
+const popupCardRemove = new PopupWithConfirm(popupForRemoveCard, async function (data, card) {
   popupCardRemove.downloadProcces(true, 'Удаление...');
   api
-    .deleteCard(cardId)
+    .deleteCard(data._id)
     .then(() => {
+      handleNewCard(data).deleteCard(card);
       popupCardRemove.close();
+      //СПАСИБО БОЛЬШОЕ!! очень все развернуто и прям все легче усваивать получается! здоровь вам и любви)
     })
     .catch((err) => console.log(`Ошибка.....: ${err}`))
     .finally(popupCardRemove.downloadProcces(false));
-  card.remove();
-  card = null;
 });
 const popupEditAvatar = new PopupWithForm(popupForEditAvatar, async function (data) {
   popupEditAvatar.downloadProcces(true, 'Сохранение...');
   api
     .editProfileAvatar(data.link)
     .then((data) => {
-      dataInfo.setUserInfo(data), popupEditAvatar.close();
+      dataInfo.setUserInfo(data);
+      popupEditAvatar.close();
     })
     .catch((err) => console.log(`Ошибка.....: ${err}`))
     .finally(popupEditAvatar.downloadProcces(false));
@@ -110,8 +110,8 @@ async function handleCardClick(evt) {
   return popupScaleImage.open(evt.target);
 }
 
-async function handleRemoveCard(cardId, card) {
-  popupCardRemove.open(cardId, card);
+async function handleRemoveCard(data, card) {
+  popupCardRemove.open(data, card);
 }
 
 function handleNewCard(card) {
@@ -124,19 +124,23 @@ function handleNewCard(card) {
     () => {
       api
         .likeCard(card._id)
-        .then((res) => newCard.likesAmount(res.likes), newCard.like())
+        .then((res) => {
+          newCard.likesAmount(res.likes);
+          newCard.like();
+        })
         .catch((err) => console.log(`Ошибка.....: ${err}`));
     },
     () => {
       api
         .deleteLikeCard(card._id)
         .then((res) => {
-          newCard.likesAmount(res.likes), newCard.disLike();
+          newCard.likesAmount(res.likes);
+          newCard.disLike();
         })
         .catch((err) => console.log(`Ошибка.....: ${err}`));
     }
   );
-  return newCard.generateCard();
+  return newCard;
 }
 
 validatorFormForEditAuthor.enableValidation();

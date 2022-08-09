@@ -3,7 +3,6 @@ export default class Card {
     this._data = data;
     this._title = data.name;
     this._imageLink = data.link;
-    this._cardId = data._id;
     this._likes = data.likes;
     this._cardSelector = cardSelector;
     this._element = this._getTemplate();
@@ -19,6 +18,11 @@ export default class Card {
   _getTemplate() {
     const cardElement = document.querySelector(this._cardSelector).content.querySelector('.element').cloneNode(true);
     return cardElement;
+  }
+
+  deleteCard(card) {
+    card.remove();
+    card = null;
   }
 
   likesAmount(likes) {
@@ -54,10 +58,10 @@ export default class Card {
       } else {
         this._handleLikeCard();
       }
-    })
+    });
     this._element
       .querySelector('.element__delete')
-      .addEventListener('click', () => this._handleRemoveCard(this._cardId, this._element));
+      .addEventListener('click', () => this._handleRemoveCard(this._data, this._element));
     this._image.addEventListener('click', this._handleCardClick);
   }
 

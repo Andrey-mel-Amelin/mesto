@@ -22,5 +22,3 @@ export const formForEditAvatar = popupForEditAvatar.querySelector('.form_for_edi
 
 export const authorProfileInput = document.querySelector('.form__input_info_name-author');
 export const authorJobProfileInput = document.querySelector('.form__input_info_name-author-job');
-
-export const placeElements = document.querySelector('.elements');

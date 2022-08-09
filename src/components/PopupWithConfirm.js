@@ -24,7 +24,7 @@ export default class PopupWithConfirm extends Popup {
   close() {
     super.close();
     this._formContainer.reset();
-    setTimeout(() => this._submitButton.textContent = this._submitButtonText, 200)
+    setTimeout(() => this._submitButton.textContent = this._submitButtonText, 500)
   }
 
   setEventListeners() {
