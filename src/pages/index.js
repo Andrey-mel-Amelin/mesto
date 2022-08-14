@@ -55,7 +55,10 @@ const popupProfile = new PopupWithForm(popupForEditAuthor, (data) => {
       dataInfo.setUserInfo(userInfo);
       popupProfile.close();
     })
-    .catch((err) => console.log(`Ошибка.....: ${err}`))
+    .catch((err) => {
+      popupProfile.downloadProcces(true, 'Ошибка отправки формы')
+      console.log(`Ошибка.....: ${err}`)
+    })
     .finally(popupProfile.downloadProcces(false));
 });
 const popupCard = new PopupWithForm(popupForAddCard, (data) => {
@@ -66,7 +69,10 @@ const popupCard = new PopupWithForm(popupForAddCard, (data) => {
       cards.addItem(handleNewCard(card).generateCard());
       popupCard.close();
     })
-    .catch((err) => console.log(`Ошибка.....: ${err}`))
+    .catch((err) => {
+      popupCard.downloadProcces(true, 'Ошибка отправки формы');
+      console.log(`Ошибка.....: ${err}`);
+    })
     .finally(popupCard.downloadProcces(false));
 });
 const popupScaleImage = new PopupWithImage(popupForScaleImage);
@@ -89,7 +95,10 @@ const popupEditAvatar = new PopupWithForm(popupForEditAvatar, (data) => {
       dataInfo.setUserInfo(data);
       popupEditAvatar.close();
     })
-    .catch((err) => console.log(`Ошибка.....: ${err}`))
+    .catch((err) => {
+      popupEditAvatar.downloadProcces(true, 'Ошибка отправки формы');
+      console.log(`Ошибка.....: ${err}`);
+    })
     .finally(popupEditAvatar.downloadProcces(false));
 });
 
