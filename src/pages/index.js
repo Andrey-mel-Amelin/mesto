@@ -70,19 +70,18 @@ const popupCard = new PopupWithForm(popupForAddCard, (data) => {
     .finally(popupCard.downloadProcces(false));
 });
 const popupScaleImage = new PopupWithImage(popupForScaleImage);
-const popupCardRemove = new PopupWithConfirm(popupForRemoveCard, async function (data, card) {
+const popupCardRemove = new PopupWithConfirm(popupForRemoveCard, (card) => {
   popupCardRemove.downloadProcces(true, 'Удаление...');
   api
-    .deleteCard(data._id)
+    .deleteCard(card._data._id)
     .then(() => {
-      handleNewCard(data).deleteCard(card);
+      card.deleteCard();
       popupCardRemove.close();
-      //СПАСИБО БОЛЬШОЕ!! очень все развернуто и прям все легче усваивать получается! здоровь вам и любви)
     })
     .catch((err) => console.log(`Ошибка.....: ${err}`))
     .finally(popupCardRemove.downloadProcces(false));
 });
-const popupEditAvatar = new PopupWithForm(popupForEditAvatar, async function (data) {
+const popupEditAvatar = new PopupWithForm(popupForEditAvatar, (data) => {
   popupEditAvatar.downloadProcces(true, 'Сохранение...');
   api
     .editProfileAvatar(data.link)
@@ -106,12 +105,12 @@ Promise.all([api.getUserInfo(), api.getCards()])
     console.log(err);
   });
 
-async function handleCardClick(evt) {
+function handleCardClick(evt) {
   return popupScaleImage.open(evt.target);
 }
 
-async function handleRemoveCard(data, card) {
-  popupCardRemove.open(data, card);
+function handleRemoveCard(data) {
+  popupCardRemove.open(data);
 }
 
 function handleNewCard(card) {
@@ -120,7 +119,7 @@ function handleNewCard(card) {
     '#card',
     handleCardClick,
     userId,
-    handleRemoveCard,
+    () => handleRemoveCard(newCard),
     () => {
       api
         .likeCard(card._id)

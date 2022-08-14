@@ -15,10 +15,9 @@ export default class PopupWithConfirm extends Popup {
     }
   }
 
-  open(data, card) {
+  open(data) {
     super.open();
     this._data = data;
-    this._card = card;
   }
 
   close() {
@@ -31,7 +30,7 @@ export default class PopupWithConfirm extends Popup {
     super.setEventListeners();
     this._formContainer.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      this._submitForm(this._data, this._card);
+      this._submitForm(this._data);
     });
   }
 }

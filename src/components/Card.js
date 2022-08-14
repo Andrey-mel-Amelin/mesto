@@ -20,9 +20,9 @@ export default class Card {
     return cardElement;
   }
 
-  deleteCard(card) {
-    card.remove();
-    card = null;
+  deleteCard() {
+    this._element.remove();
+    this._element = null;
   }
 
   likesAmount(likes) {
@@ -59,9 +59,7 @@ export default class Card {
         this._handleLikeCard();
       }
     });
-    this._element
-      .querySelector('.element__delete')
-      .addEventListener('click', () => this._handleRemoveCard(this._data, this._element));
+    this._element.querySelector('.element__delete').addEventListener('click', this._handleRemoveCard);
     this._image.addEventListener('click', this._handleCardClick);
   }
 
